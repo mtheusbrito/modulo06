@@ -8,6 +8,7 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import './config/ReactotronConfig';
 
 export default class App extends Component{
   render(){
