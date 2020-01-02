@@ -4,9 +4,20 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Container, Form, Input, SubmitButton, List, User, Avatar, Name, Bio, ProfileButton, ProfileButtonText} from './styles';
 import api from  '../../services/api';
+import PropTypes from 'prop-types';
 
 
 export default class Main extends React.Component {
+  static navigationOptions = {
+    title: 'Usuários',
+  };
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func, 
+
+    }).isRequired,
+   };
+  
   state =  {
     newUser: '',
     users:[], 
@@ -14,6 +25,7 @@ export default class Main extends React.Component {
      
 
   }
+ 
 
   async componentDidMount(){
     const users = await AsyncStorage.getItem('users');
@@ -31,6 +43,10 @@ export default class Main extends React.Component {
 
     }
 
+  }
+  handleNavigate = (user)=>{
+    const { navigation } = this.props;
+    navigation.navigate('User', { user } );
   }
   handleAddUser = async () => {
     const {users, newUser } = this.state;
@@ -81,7 +97,7 @@ export default class Main extends React.Component {
            <Name>{item.name}</Name> 
            <Bio>{item.bio}</Bio>
 
-           <ProfileButton onPress={()=>{}}>
+           <ProfileButton onPress={() => this.handleNavigate(item)}>
              <ProfileButtonText>Ver perfil</ProfileButtonText>
            </ProfileButton>
           </User>
@@ -91,6 +107,4 @@ export default class Main extends React.Component {
     );
   }
 }
-Main.navigationOptions = {
-  title: 'Usuários',
-};
+

@@ -1,7 +1,17 @@
 import React from 'react'
-import {View} from 'react-native'
+import {Container }  from './styles';
+import PropTypes from 'prop-types';
 
+export default class User extends React.Component {
+  render(){
+    return (
+      <Container>
+        
+      </Container>
 
-export default function User(){
-  return <View/>
+    );
+  }
 }
+User.navigationOptions = {
+  title: 'Usuário',
+};
